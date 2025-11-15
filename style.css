@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Segoe UI",
+    sans-serif;
+  background: #f5f5f5;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;        /* 等於 top:0; right:0; bottom:0; left:0; */
+  z-index: -1;     /* 放在所有內容後面當底圖 */
+}
+
+.bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* 圖片等比例放大裁切，鋪滿畫面 */
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+/* 外框卡片：模仿截圖那個白底、有邊框的區塊 */
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #dcdcdc;
+  padding: 24px 24px 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.title {
+  margin: 0 0 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* 標籤＋日期在同一行 */
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.field-row label {
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+input[type="date"] {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #bdbdbd;
+  outline: none;
+}
+
+input[type="date"]:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+/* 按鈕：白底＋藍色描邊，接近你截圖的樣式 */
+button {
+  padding: 8px 24px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1.5px solid #2563eb;
+  background: gainsboro;
+  color: #111827;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.1s ease,
+    transform 0.1s ease;
+}
+
+button:hover {
+  background: #eff6ff;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.error {
+  color: #d9534f;
+  font-size: 13px;
+  min-height: 18px;
+  margin-top: 8px;
+}
+
+/* 結果區：淺灰底、圓角、內距，數字已在 JS 裡用 <strong> 變粗體 */
+.result-box {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: #f8f8f8;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 40px;
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666666;
+  line-height: 1.5;
+}

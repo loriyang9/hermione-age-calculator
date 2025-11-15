@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>妙麗歲數計算機</title>
+  <!-- 外部樣式 -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="bg">
+    <img
+      src="https://images.unsplash.com/photo-1762751436615-e65c7c392f93?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      alt="Corgi background"
+    />
+  </div>
+  <div class="app">
+    <div class="card">
+      <h1 class="title">🐶 妙麗歲數計算機</h1>
+
+      <div class="field-row">
+        <label for="birthDate">狗狗的出生日期：</label>
+        <input type="date" id="birthDate" />
+      </div>
+
+      <button id="calcBtn">開始計算</button>
+
+      <p class="error" id="errorMsg"></p>
+
+      <div class="result-box" id="result" aria-live="polite"></div>
+
+      <p class="note">
+
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // 可以改這裡的名字，整個畫面都會套用同一隻狗的名字
+    const DOG_NAME = "妙麗";
+
+    // 把日期上限鎖在今天，避免選到未來日期
+    (function setMaxDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      const todayStr = `${yyyy}-${mm}-${dd}`;
+      document.getElementById("birthDate").setAttribute("max", todayStr);
+    })();
+
+    document.getElementById("calcBtn").addEventListener("click", function () {
+      const birthStr = document.getElementById("birthDate").value;
+      const resultEl = document.getElementById("result");
+      const errorEl = document.getElementById("errorMsg");
+
+      if (!birthStr) {
+        errorEl.textContent = "請先選擇狗狗的出生日期。";
+        resultEl.textContent = "";
+        return;
+      }
+
+      const birthDate = new Date(birthStr);
+      const today = new Date();
+
+      if (birthDate > today) {
+        errorEl.textContent = "出生日期不能晚於今天。";
+        resultEl.textContent = "";
+        return;
+      }
+
+      errorEl.textContent = "";
+
+      // 計算狗狗實際年齡（年）
+      const diffMs = today - birthDate;
+      const diffYears = diffMs / (1000 * 60 * 60 * 24 * 365.25);
+      const dogYears = Math.round(diffYears * 10) / 10; // 小數一位
+
+      // 簡化版：人類年齡 = 狗狗年齡 × 7
+      const humanYears = Math.round(dogYears * 7 * 10) / 10;
+
+      resultEl.innerHTML =
+        DOG_NAME +
+        "現在大約 <strong>" +
+        dogYears.toFixed(1) +
+        "</strong> 歲狗狗年齡，" +
+        "換算成人類年齡大約是 <strong>" +
+        humanYears.toFixed(1) +
+        "</strong> 歲。";
+    });
+  </script>
+</body>
+</html>

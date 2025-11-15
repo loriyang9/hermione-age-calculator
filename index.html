@@ -34,59 +34,66 @@
     </div>
   </div>
 
-  <script>
-    // 可以改這裡的名字，整個畫面都會套用同一隻狗的名字
-    const DOG_NAME = "妙麗";
+<script>
+  const DOG_NAME = "妙麗";
 
-    // 把日期上限鎖在今天，避免選到未來日期
-    (function setMaxDate() {
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, "0");
-      const dd = String(today.getDate()).padStart(2, "0");
-      const todayStr = `${yyyy}-${mm}-${dd}`;
-      document.getElementById("birthDate").setAttribute("max", todayStr);
-    })();
+  // 把日期上限鎖在今天
+  (function setMaxDate() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+    const todayStr = `${yyyy}-${mm}-${dd}`;
+    document.getElementById("birthDate").setAttribute("max", todayStr);
+  })();
 
-    document.getElementById("calcBtn").addEventListener("click", function () {
-      const birthStr = document.getElementById("birthDate").value;
-      const resultEl = document.getElementById("result");
-      const errorEl = document.getElementById("errorMsg");
+  document.getElementById("calcBtn").addEventListener("click", function () {
+    const birthStr = document.getElementById("birthDate").value;
+    const resultEl = document.getElementById("result");
+    const errorEl = document.getElementById("errorMsg");
 
-      if (!birthStr) {
-        errorEl.textContent = "請先選擇狗狗的出生日期。";
-        resultEl.textContent = "";
-        return;
-      }
+    // 沒選日期 → 顯示錯誤、隱藏結果
+    if (!birthStr) {
+      errorEl.textContent = "請先選擇狗狗的出生日期。";
+      resultEl.textContent = "";
+      resultEl.style.display = "none";
+      return;
+    }
 
-      const birthDate = new Date(birthStr);
-      const today = new Date();
+    const birthDate = new Date(birthStr);
+    const today = new Date();
 
-      if (birthDate > today) {
-        errorEl.textContent = "出生日期不能晚於今天。";
-        resultEl.textContent = "";
-        return;
-      }
+    // 選到未來日期 → 顯示錯誤、隱藏結果
+    if (birthDate > today) {
+      errorEl.textContent = "出生日期不能晚於今天。";
+      resultEl.textContent = "";
+      resultEl.style.display = "none";
+      return;
+    }
 
-      errorEl.textContent = "";
+    // 清除錯誤訊息
+    errorEl.textContent = "";
 
-      // 計算狗狗實際年齡（年）
-      const diffMs = today - birthDate;
-      const diffYears = diffMs / (1000 * 60 * 60 * 24 * 365.25);
-      const dogYears = Math.round(diffYears * 10) / 10; // 小數一位
+    // 計算狗狗實際年齡（年）
+    const diffMs = today - birthDate;
+    const diffYears = diffMs / (1000 * 60 * 60 * 24 * 365.25);
+    const dogYears = Math.round(diffYears * 10) / 10;
 
-      // 簡化版：人類年齡 = 狗狗年齡 × 7
-      const humanYears = Math.round(dogYears * 7 * 10) / 10;
+    // 簡化計算：人類年齡 = 狗狗年齡 × 7
+    const humanYears = Math.round(dogYears * 7 * 10) / 10;
 
-      resultEl.innerHTML =
-        DOG_NAME +
-        "現在大約 <strong>" +
-        dogYears.toFixed(1) +
-        "</strong> 歲狗狗年齡，" +
-        "換算成人類年齡大約是 <strong>" +
-        humanYears.toFixed(1) +
-        "</strong> 歲。";
-    });
-  </script>
+    // 塞進結果區
+    resultEl.innerHTML =
+      DOG_NAME +
+      "現在大約 <strong>" +
+      dogYears.toFixed(1) +
+      "</strong> 歲狗狗年齡，換算成人類年齡大約是 <strong>" +
+      humanYears.toFixed(1) +
+      "</strong> 歲。";
+
+    // 有結果才顯示灰色區塊
+    resultEl.style.display = "block";
+  });
+</script>
 </body>
 </html>

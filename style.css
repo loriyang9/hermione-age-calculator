@@ -113,6 +113,7 @@ button:active {
   font-size: 14px;
   line-height: 1.7;
   min-height: 40px;
+  display: none; /* 一開始先藏起來 */
 }
 
 .note {

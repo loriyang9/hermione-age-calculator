@@ -3,64 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>妙麗歲數計算機</title>
+  <title>狗年齡換算器</title>
   <!-- 外部樣式 -->
   <link rel="stylesheet" href="style.css" />
   <!--  放入這三行開始 -->
-    <link rel="icon" type="image/png" href="./icon.png">
-    <link rel="apple-touch-icon" href="./icon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./icon.png">
+  <link rel="icon" type="image/png" href="./icon.png">
+  <link rel="apple-touch-icon" href="./icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./icon.png">
   <!--  放入這三行結束 -->
 </head>
 <body>
-<div class="bg">
+  <div class="bg">
     <img
-      src="https://images.unsplash.com/photo-1762751436615-e65c7c392f93?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      src="https://images.unsplash.com/vector-1762238468423-feb37624930b?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="Corgi background"
     />
   </div>
+
   <div class="app">
     <div class="glass-container">
       <div class="glass-filter"></div>
       <div class="glass-overlay"></div>
       <div class="glass-specular"></div>
-    <div class="card liquid">
-      <h1 class="title">
-         <!-- Paw icon path from Font Awesome Free (CC BY 4.0) -->
-        <svg class="title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
-         <path d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z"/>
-        </svg>
-  妙麗歲數計算機
-</h1>
-      <div class="field-row">
-        <label for="birthDate">狗狗的出生日期：</label>
-        <input type="date" id="birthDate" />
+
+      <div class="card liquid">
+        <h1 class="title">狗狗年齡換算機</h1>
+
+        <!-- 先生日、再體型 -->
+        <div class="field-row">
+          <label for="birthDate">狗狗的出生日期：</label>
+          <input type="date" id="birthDate" class="input-control" />
+        </div>
+
+        <div class="field-row">
+          <label for="dogSize">狗狗體型：</label>
+          <select id="dogSize" class="input-control">
+            <option value="small">小型犬（體重＜10 kg）</option>
+            <option value="medium">中型犬（體重 10–25 kg）</option>
+            <option value="large">大型犬（體重＞25 kg）</option>
+          </select>
+        </div>
+
+        <button id="calcBtn">開始計算</button>
+
+        <p class="error" id="errorMsg"></p>
+
+        <div class="result-box" id="result" aria-live="polite"></div>
+
+        <p class="note">
+          本計算器的體型分級（小型＜10 kg、中型 10–25 kg、大型＞25 kg），參考瑞士營養公司 SwisVet 在〈How to determine the age of your dog〉一文中對 small／medium／large dogs 的體重區間建議。<br>
+          狗齡換算人齡的公式（第 1 年約 15 人歲、第 2 年約 9 人歲、之後依體型每年約增加 4–6 人歲），則依據美國獸醫協會與《The Merck Veterinary Manual》對犬隻成長與老化速度的說明整理而成。
+        </p>
       </div>
-
-      <button id="calcBtn">開始計算</button>
-
-      <p class="error" id="errorMsg"></p>
-
-      <div class="result-box" id="result" aria-live="polite"></div>
-
-      <p class="note">
-
-      </p>
-    </div>
     </div>
   </div>
 
-  <!-- 液態玻璃的位移濾鏡：參考 CodePen 寫法，已調弱一點 -->
+  <!-- 液態玻璃的位移濾鏡 -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
     <filter id="lensFilter" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
       <feComponentTransfer in="SourceAlpha" result="alpha">
         <feFuncA type="identity" />
       </feComponentTransfer>
 
-      <!-- 模糊 alpha，當作位移地圖 -->
       <feGaussianBlur in="alpha" stdDeviation="50" result="blur" />
 
-      <!-- 用模糊的 alpha 來位移畫面 -->
       <feDisplacementMap
         in="SourceGraphic"
         in2="blur"
@@ -70,11 +76,11 @@
       />
     </filter>
   </svg>
-  </svg>
 
-<script>
-  const DOG_NAME = "妙麗";
-  const STORAGE_KEY = "dogAgeCalcBirth"; // 只存生日
+  <script>
+  const DOG_NAME = "狗狗";
+  const STORAGE_KEY_BIRTH = "dogAgeCalcBirth";   // 存生日
+  const STORAGE_KEY_SIZE  = "dogAgeCalcSize";    // 存狗狗體型 small/medium/large
 
   // 把日期上限鎖在今天
   (function setMaxDate() {
@@ -83,22 +89,98 @@
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const dd = String(today.getDate()).padStart(2, "0");
     const todayStr = `${yyyy}-${mm}-${dd}`;
-    document.getElementById("birthDate").setAttribute("max", todayStr);
+    const birthInput = document.getElementById("birthDate");
+    if (birthInput) {
+      birthInput.setAttribute("max", todayStr);
+    }
   })();
+
+  // 讓整條日期欄位都能打開日期選擇器（不只小圖示）
+(function enhanceDatePickerClick() {
+  const birthInput = document.getElementById("birthDate");
+  if (!birthInput) return;
+
+  // 部分瀏覽器支援 showPicker，可以主動叫出日期面板
+  const canShowPicker = typeof birthInput.showPicker === "function";
+
+  // 1. 點整個 field-row，都算在點日期
+  const row = birthInput.closest(".field-row");
+  if (row && canShowPicker) {
+    row.style.cursor = "pointer";
+
+    row.addEventListener("click", (event) => {
+      // 避免點到裡面的 input 產生奇怪的選字行為，統一改成叫出日期面板
+      event.preventDefault();
+      birthInput.showPicker();
+    });
+  } else {
+    // 如果瀏覽器不支援 showPicker，就至少讓點 label 會 focus 到 input
+    const label = document.querySelector('label[for="birthDate"]');
+    if (label) {
+      label.style.cursor = "pointer";
+      label.addEventListener("click", () => {
+        birthInput.focus();
+      });
+    }
+  }
+})();
+
+  // 依照「狗齡 + 體型」換算成人類年齡
+  // 0～1 歲：人類 = 狗齡 × 15
+  // 1～2 歲：人類 = 15 + (狗齡 − 1) × 9
+  // >2 歲：  人類 = 24 + (狗齡 − 2) × 每年增加值
+  // 小型：+4；中型：+5；大型：+6
+  function convertToHumanYears(dogYears, size) {
+    if (dogYears <= 0) {
+      return 0;
+    }
+
+    if (dogYears <= 1) {
+      return dogYears * 15;
+    }
+
+    if (dogYears <= 2) {
+      return 15 + (dogYears - 1) * 9;
+    }
+
+    const extraYears = dogYears - 2;
+    let perYear;
+
+    switch (size) {
+      case "small":
+        perYear = 4;
+        break;
+      case "medium":
+        perYear = 5;
+        break;
+      case "large":
+        perYear = 6;
+        break;
+      default:
+        perYear = 5; // 萬一出現奇怪值，就當中型
+    }
+
+    return 24 + extraYears * perYear;
+  }
 
   // 共用：給一個生日字串，幫你算出結果並顯示
   function calculateAndShow(birthStr, options = { save: false }) {
     const birthInput = document.getElementById("birthDate");
     const resultEl = document.getElementById("result");
     const errorEl = document.getElementById("errorMsg");
+    const sizeSelect = document.getElementById("dogSize");
 
-    // 先把生日填回 input（載入時也會用到）
+    if (!birthInput || !resultEl || !errorEl || !sizeSelect) {
+      // 如果 DOM 沒抓到就直接跳出，避免 JS 整個掛掉
+      return;
+    }
+
+    // 把生日填回 input
     birthInput.value = birthStr;
 
     const birthDate = new Date(birthStr);
     const today = new Date();
 
-    // 如果生日在未來，當作錯誤處理
     if (birthDate > today) {
       errorEl.textContent = "出生日期不能晚於今天。";
       resultEl.textContent = "";
@@ -108,15 +190,17 @@
 
     errorEl.textContent = "";
 
-    // 計算狗狗實際年齡（年）
+    // 算狗狗實際年齡（年）
     const diffMs = today - birthDate;
     const diffYears = diffMs / (1000 * 60 * 60 * 24 * 365.25);
     const dogYears = Math.round(diffYears * 10) / 10;
 
-    // 簡化計算：人類年齡 = 狗狗年齡 × 7
-    const humanYears = Math.round(dogYears * 7 * 10) / 10;
+    // 讀體型（small / medium / large）
+    const size = sizeSelect.value || "medium";
 
-    // 塞進結果區
+    const rawHumanYears = convertToHumanYears(dogYears, size);
+    const humanYears = Math.round(rawHumanYears * 10) / 10;
+
     resultEl.innerHTML =
       DOG_NAME +
       "現在大約 <strong>" +
@@ -127,25 +211,44 @@
 
     resultEl.style.display = "block";
 
-    // 需要的時候才存進 localStorage（通常是按下按鈕那次）
+    // 需要的時候才存進 localStorage（生日＋體型）
     if (options.save) {
-      localStorage.setItem(STORAGE_KEY, birthStr);
+      localStorage.setItem(STORAGE_KEY_BIRTH, birthStr);
+      localStorage.setItem(STORAGE_KEY_SIZE, size);
     }
   }
 
-  // 載入頁面時，看看 localStorage 有沒有之前存的生日，有的話就用今天日期重算
+  // 載入頁面時，把之前存的生日＋體型帶回來
   (function loadFromStorage() {
-    const storedBirth = localStorage.getItem(STORAGE_KEY);
+    const storedBirth = localStorage.getItem(STORAGE_KEY_BIRTH);
+    const storedSize  = localStorage.getItem(STORAGE_KEY_SIZE);
+
+    const birthInput = document.getElementById("birthDate");
+    const sizeSelect = document.getElementById("dogSize");
+
+    if (!birthInput || !sizeSelect) return;
     if (!storedBirth) return;
-    calculateAndShow(storedBirth); // 這裡不需要再存一次，所以不帶 save:true
+
+    // 還原欄位值
+    birthInput.value = storedBirth;
+    if (storedSize) {
+      sizeSelect.value = storedSize;
+    }
+
+    // 用現在的日期重算一次
+    calculateAndShow(storedBirth, { save: false });
   })();
 
+  // 按下「開始計算」按鈕
   document.getElementById("calcBtn").addEventListener("click", function () {
-    const birthStr = document.getElementById("birthDate").value;
+    const birthInput = document.getElementById("birthDate");
     const resultEl = document.getElementById("result");
     const errorEl = document.getElementById("errorMsg");
 
-    // 沒選日期 → 顯示錯誤、隱藏結果，不存任何東西
+    if (!birthInput || !resultEl || !errorEl) return;
+
+    const birthStr = birthInput.value;
+
     if (!birthStr) {
       errorEl.textContent = "請先選擇狗狗的出生日期。";
       resultEl.textContent = "";
@@ -153,7 +256,7 @@
       return;
     }
 
-    // 按按鈕這次：計算＋顯示＋存到 localStorage
+    // 計算＋顯示＋存生日和體型
     calculateAndShow(birthStr, { save: true });
   });
 </script>

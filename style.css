@@ -151,7 +151,7 @@ body {
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
 }
 
-/* 日期欄位一整行 */
+/* 日期／體型欄位一整行 */
 
 .field-row {
   display: flex;
@@ -164,42 +164,39 @@ body {
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
-  color: #ffffff;
+  color: rgba(27, 64, 92, 0.92);
   text-shadow: 0 1px 2px rgba(136, 132, 132, 0.6);
 }
 
-/* 日期 input：小玻璃膠囊 */
+/* 日期 + 體型：完全透明，沒有底色也沒有邊框 */
 
-#birthDate {
+#birthDate,
+#dogSize {
   flex: 1;
   padding: 8px 14px;
   height: 38px;
+  border: none;                       /* 不要白色邊框 */
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.25);
+  background: transparent;            /* 無底色 */
   color: #111827;
   font-size: 14px;
   letter-spacing: 0.08em;
   outline: none;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* select 外觀統一一下（避免原生太醜） */
+#dogSize {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 #birthDate::placeholder {
-  color: rgba(55, 65, 81, 0.7);
+  color: rgba(55, 65, 81, 0.85);
 }
 
-#birthDate:hover {
-  background: rgba(255, 255, 255, 0.35);
-}
-
-#birthDate:focus {
-  border-color: #ffffff;
-  box-shadow:
-    0 0 0 1px rgba(15, 23, 42, 0.08),
-    0 0 0 6px rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.98);
-}
 
 /* 按鈕：亮粉漸層 */
 
@@ -265,12 +262,12 @@ body {
   color: #111827;
 }
 
-/* 備註文字（你目前是空的，但先留） */
+/* 備註文字 */
 
 .note {
-  margin-top: 6px;
+  margin-top: 15px;
   font-size: 12px;
-  color: rgba(243, 244, 246, 0.9);
+  color: rgba(136, 156, 197, 0.9);
   line-height: 1.6;
 }
 
@@ -278,7 +275,7 @@ body {
 
 @media (max-width: 900px) {
   .app {
-    justify-content: center top;
+    justify-content: center;
     align-items: flex-start;
     padding: 24px 16px;
   }

@@ -36,6 +36,7 @@
 
 <script>
   const DOG_NAME = "妙麗";
+  const STORAGE_KEY = "dogAgeCalcBirth"; // 只存生日
 
   // 把日期上限鎖在今天
   (function setMaxDate() {
@@ -47,23 +48,19 @@
     document.getElementById("birthDate").setAttribute("max", todayStr);
   })();
 
-  document.getElementById("calcBtn").addEventListener("click", function () {
-    const birthStr = document.getElementById("birthDate").value;
+  // 共用：給一個生日字串，幫你算出結果並顯示
+  function calculateAndShow(birthStr, options = { save: false }) {
+    const birthInput = document.getElementById("birthDate");
     const resultEl = document.getElementById("result");
     const errorEl = document.getElementById("errorMsg");
 
-    // 沒選日期 → 顯示錯誤、隱藏結果
-    if (!birthStr) {
-      errorEl.textContent = "請先選擇狗狗的出生日期。";
-      resultEl.textContent = "";
-      resultEl.style.display = "none";
-      return;
-    }
+    // 先把生日填回 input（載入時也會用到）
+    birthInput.value = birthStr;
 
     const birthDate = new Date(birthStr);
     const today = new Date();
 
-    // 選到未來日期 → 顯示錯誤、隱藏結果
+    // 如果生日在未來，當作錯誤處理
     if (birthDate > today) {
       errorEl.textContent = "出生日期不能晚於今天。";
       resultEl.textContent = "";
@@ -71,7 +68,6 @@
       return;
     }
 
-    // 清除錯誤訊息
     errorEl.textContent = "";
 
     // 計算狗狗實際年齡（年）
@@ -91,8 +87,36 @@
       humanYears.toFixed(1) +
       "</strong> 歲。";
 
-    // 有結果才顯示灰色區塊
     resultEl.style.display = "block";
+
+    // 需要的時候才存進 localStorage（通常是按下按鈕那次）
+    if (options.save) {
+      localStorage.setItem(STORAGE_KEY, birthStr);
+    }
+  }
+
+  // 載入頁面時，看看 localStorage 有沒有之前存的生日，有的話就用今天日期重算
+  (function loadFromStorage() {
+    const storedBirth = localStorage.getItem(STORAGE_KEY);
+    if (!storedBirth) return;
+    calculateAndShow(storedBirth); // 這裡不需要再存一次，所以不帶 save:true
+  })();
+
+  document.getElementById("calcBtn").addEventListener("click", function () {
+    const birthStr = document.getElementById("birthDate").value;
+    const resultEl = document.getElementById("result");
+    const errorEl = document.getElementById("errorMsg");
+
+    // 沒選日期 → 顯示錯誤、隱藏結果，不存任何東西
+    if (!birthStr) {
+      errorEl.textContent = "請先選擇狗狗的出生日期。";
+      resultEl.textContent = "";
+      resultEl.style.display = "none";
+      return;
+    }
+
+    // 按按鈕這次：計算＋顯示＋存到 localStorage
+    calculateAndShow(birthStr, { save: true });
   });
 </script>
 </body>

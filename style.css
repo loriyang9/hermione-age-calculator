@@ -187,11 +187,62 @@ body {
 }
 
 /* select 外觀統一一下（避免原生太醜） */
-#dogSize {
+/* 外殼：做成跟日期欄位一樣的玻璃膠囊 */
+.select-shell {
+  position: relative;
+  flex: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* 右邊小箭頭（純視覺用） */
+.select-shell::after {
+  content: "▾";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-52%);
+  font-size: 12px;
+  color: rgba(55, 65, 81, 0.8);
+  pointer-events: none;
+}
+
+/* 真正的 select：撐滿外殼，背景透明，拿掉原生樣式 */
+.select-shell select {
+  width: 100%;
+  padding: 8px 28px 8px 14px; /* 左邊文字、右邊留給箭頭 */
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  outline: none;
+  box-sizing: border-box;
+
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+
+/* hover / focus 狀態調一點亮度，跟日期欄位一致 */
+.select-shell:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.select-shell:focus-within {
+  border-color: #ffffff;
+  box-shadow:
+    0 0 0 1px rgba(15, 23, 42, 0.06),
+    0 0 0 4px rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.22);
+}
+
 
 #birthDate::placeholder {
   color: rgba(55, 65, 81, 0.85);
